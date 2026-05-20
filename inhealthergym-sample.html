@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인헬서짐 월계역점</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7B2FBE;
+    --blue: #1a1aff;
+    --red: #E8001D;
+    --dark: #0a0a0a;
+    --white: #ffffff;
+    --gray: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 18px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(123,47,190,0.3);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+  .logo span { color: var(--purple); }
+  .nav-cta {
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: #9b3ffe; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #0a0a0a 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(123,47,190,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(123,47,190,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-accent {
+    position: absolute;
+    top: 20%; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(123,47,190,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-accent2 {
+    position: absolute;
+    bottom: 10%; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(26,26,255,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--purple);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 14vw, 86px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .hero h1 .line2 { color: var(--purple); }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    margin: 16px 0 32px;
+    line-height: 1.6;
+  }
+  .hero-sub strong { color: var(--white); }
+  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--purple);
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #9b3ffe; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    padding: 14px 28px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+  .hero-stats {
+    display: flex; gap: 28px;
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--purple);
+    line-height: 1;
+  }
+  .stat-lbl { font-size: 11px; color: var(--gray); margin-top: 2px; }
+
+  /* SECTION COMMON */
+  section { padding: 72px 24px; }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 9vw, 52px);
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  /* 왜 PT인가 */
+  .why-section {
+    background: #0d0d0d;
+    border-top: 1px solid rgba(123,47,190,0.2);
+    border-bottom: 1px solid rgba(123,47,190,0.2);
+  }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .why-card {
+    background: rgba(123,47,190,0.08);
+    border: 1px solid rgba(123,47,190,0.2);
+    border-radius: 8px;
+    padding: 20px 16px;
+    transition: border-color 0.2s;
+  }
+  .why-card:hover { border-color: var(--purple); }
+  .why-icon { font-size: 28px; margin-bottom: 10px; }
+  .why-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .why-card p { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+  /* TRAINERS */
+  .trainer-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .trainer-header {
+    padding: 20px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .trainer-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .trainer-name { font-size: 16px; font-weight: 700; }
+  .trainer-role { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .trainer-body { padding: 16px 20px; }
+  .trainer-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .tag-pill {
+    font-size: 11px;
+    background: rgba(123,47,190,0.15);
+    border: 1px solid rgba(123,47,190,0.3);
+    color: #c084fc;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .trainer-quote {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* REVIEWS */
+  .review-card {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .review-name { font-size: 14px; font-weight: 700; }
+  .review-meta { font-size: 11px; color: var(--gray); margin-top: 2px; }
+  .review-result {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--purple);
+    line-height: 1;
+  }
+  .review-text { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; margin-top: 10px; }
+  .stars { color: #f59e0b; font-size: 13px; letter-spacing: 1px; }
+
+  /* PROMISE */
+  .promise-section { background: #090909; }
+  .promise-list { list-style: none; }
+  .promise-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .promise-item:last-child { border-bottom: none; }
+  .promise-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--purple);
+    line-height: 1;
+    min-width: 36px;
+  }
+  .promise-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .promise-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+  /* PROGRAM */
+  .program-card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 1px solid #222;
+  }
+  .program-header {
+    padding: 18px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .program-header h3 { font-size: 17px; font-weight: 700; }
+  .program-header .price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+  }
+  .program-body { padding: 0 20px 18px; }
+  .program-features { list-style: none; }
+  .program-features li {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    padding: 4px 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .program-features li::before {
+    content: '✓';
+    color: var(--purple);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .plan-basic .program-header { background: #161616; }
+  .plan-standard .program-header { background: linear-gradient(135deg, #3d0080, #1a1aff); }
+  .plan-standard { border-color: var(--purple); }
+  .popular-badge {
+    background: var(--purple);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, #2d0060 0%, #0a0a0a 60%);
+    border-top: 1px solid rgba(123,47,190,0.4);
+    text-align: center;
+  }
+  .cta-section .section-title { font-size: clamp(40px, 10vw, 64px); }
+  .cta-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--purple);
+    letter-spacing: 2px;
+    margin: 8px 0 24px;
+  }
+  .contact-row {
+    display: flex; gap: 10px; flex-direction: column; align-items: center;
+    margin-top: 24px;
+  }
+  .contact-btn {
+    width: 100%; max-width: 320px;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .contact-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+  .btn-kakao { background: #FAE100; color: #3A1D1D; }
+  .btn-naver { background: #03C75A; color: white; }
+  .btn-call { background: var(--purple); color: white; }
+
+  /* INFO */
+  .info-row {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: 13px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { color: var(--gray); min-width: 56px; }
+  .info-value { color: var(--white); }
+
+  /* FOOTER */
+  footer {
+    padding: 28px 24px;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+  }
+  footer p { font-size: 11px; color: #444; line-height: 1.7; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero-sub { animation-delay: 0.3s; }
+  .hero-btns { animation-delay: 0.4s; }
+  .hero-stats { animation-delay: 0.5s; }
+
+  /* TICKER */
+  .ticker-wrap {
+    overflow: hidden;
+    background: var(--purple);
+    padding: 10px 0;
+    white-space: nowrap;
+  }
+  .ticker-track {
+    display: inline-block;
+    animation: ticker 18s linear infinite;
+  }
+  .ticker-item {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    padding: 0 32px;
+    color: rgba(255,255,255,0.9);
+  }
+  .ticker-dot { color: rgba(255,255,255,0.4); }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">IN<span>HEALTH</span>GYM</div>
+  <a href="#contact" class="nav-cta">무료 상담 예약</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-accent2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">월계역 1분 · 1:1 퍼스널 트레이닝</div>
+    <h1>
+      결과로<br>
+      <span class="line2">증명합니다</span>
+    </h1>
+    <p class="hero-sub">
+      인헬서짐은 <strong>체중 감량·근력 향상·체형 교정</strong> 등<br>
+      원하는 결과를 반드시 만들어드립니다.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">무료 상담 신청 →</a>
+      <a href="#reviews" class="btn-outline">실제 후기 보기</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4000+</div>
+        <div class="stat-lbl">인스타 팔로워</div>
+      </div>
+      <div>
+        <div class="stat-num">-31kg</div>
+        <div class="stat-lbl">최대 감량 성과</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">맞춤 프로그램</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">1:1 퍼스널 트레이닝</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">체중 감량 전문</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">근력 향상 프로그램</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">체형 교정</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">월계역 1분 거리</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">상담 무료</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">1:1 퍼스널 트레이닝</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">체중 감량 전문</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">근력 향상 프로그램</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">체형 교정</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">월계역 1분 거리</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">상담 무료</span><span class="ticker-dot">·</span>
+  </div>
+</div>
+
+<!-- WHY PT -->
+<section class="why-section">
+  <div class="section-tag">Why PT</div>
+  <div class="section-title">PT,<br>왜 받는 걸까</div>
+  <p class="section-sub">혼자 하면 작심삼일. 전문가와 함께하면 결과가 달라집니다.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🎯</div>
+      <h3>맞춤 설계</h3>
+      <p>내 몸 상태와 목표에 맞는 1:1 프로그램</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💪</div>
+      <h3>올바른 자세</h3>
+      <p>부상 없이 최대 효율로 운동하는 법</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔥</div>
+      <h3>동기부여</h3>
+      <p>혼자선 포기할 순간, 트레이너가 함께</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📈</div>
+      <h3>빠른 결과</h3>
+      <p>헛된 노력 없이 목표에 직선으로 도달</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section>
+  <div class="section-tag">Our Trainers</div>
+  <div class="section-title">전문 트레이너</div>
+  <p class="section-sub">경력과 실력으로 검증된 트레이너진이 함께합니다.</p>
+
+  <div class="trainer-card">
+    <div class="trainer-header">
+      <div class="trainer-avatar">이</div>
+      <div>
+        <div class="trainer-name">이윤재 트레이너</div>
+        <div class="trainer-role">헤드 트레이너 · 보디빌딩 선수</div>
+      </div>
+    </div>
+    <div class="trainer-body">
+      <p class="trainer-quote">"첫날은 누구나 긴장하니까, 편해질 때까지 옆에서 함께할게요."</p>
+      <div class="trainer-tags">
+        <span class="tag-pill">다이어트</span>
+        <span class="tag-pill">근비대</span>
+        <span class="tag-pill">대회 준비</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="trainer-card">
+    <div class="trainer-header">
+      <div class="trainer-avatar" style="background: linear-gradient(135deg, #E8001D, #7B2FBE);">김</div>
+      <div>
+        <div class="trainer-name">김세령 트레이너</div>
+        <div class="trainer-role">재활·교정 전문</div>
+      </div>
+    </div>
+    <div class="trainer-body">
+      <p class="trainer-quote">"30대 남성도, 10대 학생도 — 모두 결과로 증명해드립니다."</p>
+      <div class="trainer-tags">
+        <span class="tag-pill">체형 교정</span>
+        <span class="tag-pill">재활 운동</span>
+        <span class="tag-pill">다이어트</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="trainer-card">
+    <div class="trainer-header">
+      <div class="trainer-avatar" style="background: linear-gradient(135deg, #1a1aff, #00bcd4);">정</div>
+      <div>
+        <div class="trainer-name">정지민 트레이너</div>
+        <div class="trainer-role">학생·청소년 전문</div>
+      </div>
+    </div>
+    <div class="trainer-body">
+      <p class="trainer-quote">"10대도 올바르게 운동하면 놀라운 결과가 나옵니다."</p>
+      <div class="trainer-tags">
+        <span class="tag-pill">청소년 PT</span>
+        <span class="tag-pill">기초 체력</span>
+        <span class="tag-pill">자세 교정</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="background:#0d0d0d; border-top:1px solid #1a1a1a;">
+  <div class="section-tag">Real Reviews</div>
+  <div class="section-title">솔직한 후기</div>
+  <p class="section-sub">실제 회원님들의 이야기입니다.</p>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div>
+        <div class="review-name">30대 남성 회원</div>
+        <div class="review-meta">김세령 트레이너 담당 · 3개월</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="review-result">-12kg</div>
+    </div>
+    <p class="review-text">처음엔 반신반의했는데 3개월 만에 12kg 감량했어요. 식단까지 꼼꼼하게 봐주셔서 정말 감사합니다. 다음 목표도 함께 할 예정이에요.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div>
+        <div class="review-name">10대 학생 회원</div>
+        <div class="review-meta">이윤재 트레이너 담당 · 2개월</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="review-result">+8kg</div>
+    </div>
+    <p class="review-text">마른 편이라 근육을 늘리고 싶었는데, 2개월 만에 체중이 8kg 늘고 자신감도 생겼어요. 트레이너님이 친절하게 설명해주셔서 따라가기 쉬웠어요.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div>
+        <div class="review-name">여성 직장인 회원</div>
+        <div class="review-meta">정지민 트레이너 담당 · 4개월</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="review-result">-31kg</div>
+    </div>
+    <p class="review-text">직장 생활로 살이 많이 쪄있었는데, 4개월 동안 꾸준히 하니까 31kg이나 빠졌어요. 혼자였으면 절대 못했을 것 같아요.</p>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise-section">
+  <div class="section-tag">Our Promise</div>
+  <div class="section-title">인헬서짐의<br>10가지 약속</div>
+  <p class="section-sub">저희가 지키는 약속들입니다.</p>
+  <ul class="promise-list">
+    <li class="promise-item"><span class="promise-num">01</span><div><div class="promise-title">결과 없으면 돌아오지 않습니다</div><div class="promise-desc">결과로 증명하는 것이 저희의 원칙입니다</div></div></li>
+    <li class="promise-item"><span class="promise-num">02</span><div><div class="promise-title">1:1 전담 트레이너 배정</div><div class="promise-desc">담당 트레이너가 처음부터 끝까지 함께합니다</div></div></li>
+    <li class="promise-item"><span class="promise-num">03</span><div><div class="promise-title">맞춤 식단 가이드 제공</div><div class="promise-desc">운동만큼 중요한 식단, 함께 설계합니다</div></div></li>
+    <li class="promise-item"><span class="promise-num">04</span><div><div class="promise-title">언제든 카카오톡 상담 가능</div><div class="promise-desc">운동 외 시간에도 궁금한 점은 바로 답변</div></div></li>
+    <li class="promise-item"><span class="promise-num">05</span><div><div class="promise-title">쾌적하고 청결한 시설</div><div class="promise-desc">매일 소독, 정리된 공간에서 집중할 수 있도록</div></div></li>
+  </ul>
+</section>
+
+<!-- PROGRAM -->
+<section style="background:#0a0a0a;">
+  <div class="section-tag">Programs</div>
+  <div class="section-title">수강 프로그램</div>
+  <p class="section-sub">목표와 일정에 맞게 선택하세요.</p>
+
+  <div class="program-card plan-basic">
+    <div class="program-header">
+      <h3>기본 패키지</h3>
+      <span class="price" style="color:var(--gray)">문의</span>
+    </div>
+    <div class="program-body">
+      <ul class="program-features">
+        <li>1:1 PT 10회</li>
+        <li>체성분 분석</li>
+        <li>기본 식단 가이드</li>
+        <li>카카오 상담</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="program-card plan-standard">
+    <div class="program-header">
+      <div>
+        <h3>추천 패키지 <span class="popular-badge">POPULAR</span></h3>
+      </div>
+      <span class="price">문의</span>
+    </div>
+    <div class="program-body">
+      <ul class="program-features">
+        <li>1:1 PT 20회</li>
+        <li>체성분 분석 (매월)</li>
+        <li>맞춤 식단 설계</li>
+        <li>24시간 카카오 상담</li>
+        <li>중간 결과 리포트</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="section-tag">Free Consultation</div>
+  <div class="section-title">지금 바로<br>시작하세요</div>
+  <p style="font-size:14px; color:var(--gray); margin-top:8px;">첫 상담은 무료입니다. 부담 없이 연락주세요.</p>
+  <div class="cta-number">02.942.1123</div>
+
+  <div>
+    <div class="info-row"><span class="info-label">위치</span><span class="info-value">서울 노원구 월계로338, A동 3층·4층</span></div>
+    <div class="info-row"><span class="info-label">지하철</span><span class="info-value">월계역 1번 출구 도보 1분</span></div>
+    <div class="info-row"><span class="info-label">운영</span><span class="info-value">평일 06:00 – 23:00 · 주말 08:00 – 20:00</span></div>
+  </div>
+
+  <div class="contact-row">
+    <a href="https://pf.kakao.com" class="contact-btn btn-kakao">💬 카카오채널 상담</a>
+    <a href="tel:029421123" class="contact-btn btn-call">📞 전화 상담</a>
+    <a href="#" class="contact-btn btn-naver">📅 네이버 예약</a>
+  </div>
+</section>
+
+<footer>
+  <p>
+    인헬서짐 월계역점<br>
+    서울 노원구 월계로338, A동 3층·4층 | 02.942.1123<br><br>
+    © 2025 InHealth Gym. All rights reserved.<br>
+    <span style="font-size:10px; color:#333;">※ 이 사이트는 웹사이트 제작 샘플입니다</span>
+  </p>
+</footer>
+
+</body>
+</html>
